@@ -18,11 +18,12 @@ RUN apt-get -y update && \
 
 ENV PATH=/usr/bin:/usr/local/bin:$PATH
 ## use JUPYTERLAB_VERSION to pin jupyterlab version
+#FIXME:unpin jupyterlab version
 RUN wget --quiet https://bootstrap.pypa.io/get-pip.py && python3.8 get-pip.py
 RUN pip3 install --no-cache-dir \
-        jupyterlab==3.6.3 \
-        checkov==2.3.237 \
-        pyspark==3.3.2
+        jupyterlab==$JUPYTERLAB_VERSION \
+        pyspark==3.3.2 \
+        mlflow==2.3.0
 RUN mkdir -p $HADOOP_CONF_DIR
 COPY conf/* $HADOOP_CONF_DIR
 ENV HADOOP_CONF_DIR=$HADOOP_CONF_DIR
